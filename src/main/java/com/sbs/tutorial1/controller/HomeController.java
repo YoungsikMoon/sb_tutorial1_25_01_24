@@ -112,59 +112,7 @@ public class HomeController {
 //            }});
 //        return article;
 //    }
-//
-//
-//    class Article{
-//        private final int id;
-//        private String subject;
-//        private String content;
-//        private List<Integer> articleNo;
-//
-//        public Article(int id, String subject, String content, List<Integer> articleNo) {
-//            this.id = id;
-//            this.subject = subject;
-//            this.content = content;
-//            this.articleNo = articleNo;
-//        }
-//
-//        public int getId() {
-//            return id;
-//        }
-//
-//        public List<Integer> getArticleNo() {
-//            return articleNo;
-//        }
-//
-//        public String getSubject() {
-//            return subject;
-//        }
-//
-//        public String getContent() {
-//            return content;
-//        }
-//
-//        public void setSubject(String subject) {
-//            this.subject = subject;
-//        }
-//
-//        public void setArticleNo(List<Integer> articleNo) {
-//            this.articleNo = articleNo;
-//        }
-//
-//        public void setContent(String content) {
-//            this.content = content;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return "Article{" +
-//                    "id=" + id +
-//                    ", subject='" + subject + '\'' +
-//                    ", content='" + content + '\'' +
-//                    ", articleNo=" + articleNo +
-//                    '}';
-//        }
-//    }
+
 
 //    @GetMapping("/home/showReturnArticle2")
 //    @ResponseBody
@@ -177,16 +125,7 @@ public class HomeController {
 //        return article2;
 //    }
 //
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @ToString
-    class Article2 {
-        private final int id;
-        private String subject;
-        private String content;
-        private List<Integer> articleNo;
-    }
+
 
     @GetMapping("/home/showReturnMapList")
     @ResponseBody
@@ -245,5 +184,95 @@ public class HomeController {
 
         return list;
     }
-// 커밋 테스트
+
+    @GetMapping("/home/addPerson")
+    @ResponseBody
+    public String addPerson(String name, int age){
+        int id = 1;
+        Person p = new Person(name, age);
+        System.out.println(p);
+        return "%d번 사람이 추가 되었습니다.".formatted(p.getId());
+    }
+
+}
+
+class Article{
+    private final int id;
+    private String subject;
+    private String content;
+    private List<Integer> articleNo;
+
+    public Article(int id, String subject, String content, List<Integer> articleNo) {
+        this.id = id;
+        this.subject = subject;
+        this.content = content;
+        this.articleNo = articleNo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public List<Integer> getArticleNo() {
+        return articleNo;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setArticleNo(List<Integer> articleNo) {
+        this.articleNo = articleNo;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+            "id=" + id +
+            ", subject='" + subject + '\'' +
+            ", content='" + content + '\'' +
+            ", articleNo=" + articleNo +
+            '}';
+    }
+}
+
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+class Article2 {
+    private final int id;
+    private String subject;
+    private String content;
+    private List<Integer> articleNo;
+}
+
+@AllArgsConstructor
+@Getter
+@Setter
+class Person{
+    private static int lastId;
+    private final int id;
+    private String name;
+    private int age;
+
+    static {
+        lastId = 0;
+    }
+
+    public Person(String name, int age) {
+        this(++lastId, name, age);
+    }
 }
