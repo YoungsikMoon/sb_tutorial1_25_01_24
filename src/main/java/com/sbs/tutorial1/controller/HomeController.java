@@ -197,6 +197,28 @@ public class HomeController {
         return "%d번 사람이 추가 되었습니다.".formatted(p.getId());
     }
 
+    @GetMapping("/home/personTestCase")
+    @ResponseBody
+    public String personTestCase(){
+        personList.add(new Person("홍길동",11));
+        personList.add(new Person("홍길순",22));
+        personList.add(new Person("임꺽정",33));
+
+        return "테스트케이스 추가";
+    }
+
+    @GetMapping("/home/removePerson")
+    @ResponseBody
+    public String removePerson(int id){
+        boolean removed = personList.removeIf(p -> p.getId() == id);
+        System.out.println(removed);
+        if (removed) {
+            return "%d번 사람이 삭제되었습니다.".formatted(id);
+        } else {
+            return "%d번 사람이 없습니다.".formatted(id);
+        }
+    }
+
     @GetMapping("/home/showPeople")
     @ResponseBody
     public List<Person> showPeople(){
