@@ -14,11 +14,12 @@ import java.util.*;
 @Controller
 public class HomeController {
     int num;
-    List<Integer> list;
-    Map<String, Object> map;
+    List<Person> personList;
 
     public HomeController(){
         num=-1;
+        personList = new ArrayList<>();
+
     }
 
     @GetMapping("/home/main1")
@@ -188,10 +189,18 @@ public class HomeController {
     @GetMapping("/home/addPerson")
     @ResponseBody
     public String addPerson(String name, int age){
-        int id = 1;
         Person p = new Person(name, age);
         System.out.println(p);
+
+        personList.add(p);
+
         return "%d번 사람이 추가 되었습니다.".formatted(p.getId());
+    }
+
+    @GetMapping("/home/showPeople")
+    @ResponseBody
+    public List<Person> showPeople(){
+        return personList;
     }
 
 }
@@ -262,6 +271,7 @@ class Article2 {
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 class Person{
     private static int lastId;
     private final int id;
