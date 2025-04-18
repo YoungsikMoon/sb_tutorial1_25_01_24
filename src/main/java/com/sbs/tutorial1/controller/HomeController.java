@@ -219,6 +219,25 @@ public class HomeController {
         }
     }
 
+    @GetMapping("/home/modifyPerson")
+    @ResponseBody
+    public String modifyPerson(int id,
+                               @RequestParam(defaultValue = "이름없음") String name,
+                               @RequestParam(defaultValue = "0") int age){
+        Person person = personList.stream()
+            .filter(p -> p.getId() == id)
+            .findFirst()
+            .orElse(null);
+
+        if (person != null) {
+            person.setName(name);
+            person.setAge(age);
+            return "%d번 사람이 수정되었습니다. (이름: %s, 나이: %d)".formatted(id, name, age);
+        } else {
+            return "%d번 사람이 없습니다.".formatted(id);
+        }
+    }
+
     @GetMapping("/home/showPeople")
     @ResponseBody
     public List<Person> showPeople(){
