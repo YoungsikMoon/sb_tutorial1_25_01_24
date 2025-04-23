@@ -9,12 +9,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.*;
 
+@RequestMapping("/home")
 @Controller
 public class HomeController {
     int num;
@@ -26,33 +28,33 @@ public class HomeController {
 
     }
 
-    @GetMapping("/home/main1")
+    @GetMapping("/main1")
     @ResponseBody
     public String showHome() {
         return "어서오세요.";
     }
 
-    @GetMapping("/home/main2")
+    @GetMapping("/main2")
     @ResponseBody
     public String showHome2(){
         return "환영합니다.";
     }
 
-    @GetMapping("/home/main3")
+    @GetMapping("/main3")
     @ResponseBody
     public String showHome3(){
         return "반갑습니다.";
     }
 
 
-    @GetMapping("/home/increase")
+    @GetMapping("/increase")
     @ResponseBody
     public int showIncrease(){
         num++;
         return num;
     }
 
-    @GetMapping("/home/cookieIncrease")
+    @GetMapping("/cookieIncrease")
     @ResponseBody
     public int showCookieIncrease(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int countInCookie = 0;
@@ -74,7 +76,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/home/reqAndResp")
+    @GetMapping("/reqAndResp")
     @ResponseBody
     public void showReqAndResp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int age = Integer.parseInt(req.getParameter("age"));
@@ -83,25 +85,25 @@ public class HomeController {
 
 
 
-    @GetMapping("/home/plus")
+    @GetMapping("/plus")
     @ResponseBody
     public int showPlus(int a, @RequestParam(defaultValue = "0") int b){
         return a+b;
     }
 
-    @GetMapping("/home/returnReturnBoolean")
+    @GetMapping("/returnReturnBoolean")
     @ResponseBody
     public boolean showReturnBoolean(){
         return true;
     }
 
-    @GetMapping("/home/showReturnDouble")
+    @GetMapping("/showReturnDouble")
     @ResponseBody
     public double showReturnDouble(){
         return Math.PI;
     }
 
-    @GetMapping("/home/showReturnArray")
+    @GetMapping("/showReturnArray")
     @ResponseBody
     public int[] showReturnArray(){
         int[] arr = new int[]{10, 20, 30};
@@ -109,7 +111,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/home/showReturnList")
+    @GetMapping("/showReturnList")
     @ResponseBody
     public List<Integer> showReturnList(){
 //        List<Integer> list = new ArrayList<>();
@@ -126,7 +128,7 @@ public class HomeController {
         return list;
     }
 
-    @GetMapping("/home/showReturnMap")
+    @GetMapping("/showReturnMap")
     @ResponseBody
     public Map<String, Object> showReturnMap() {
         Map<String, Object> map = new LinkedHashMap<>();
@@ -137,7 +139,7 @@ public class HomeController {
         return map;
     }
 
-//    @GetMapping("/home/showReturnArticle")
+//    @GetMapping("/showReturnArticle")
 //    @ResponseBody
 //    public Article showReturnArticle() {
 //        Article article = new Article(1, "제목1", "내용1", new ArrayList<>() {{
@@ -149,7 +151,7 @@ public class HomeController {
 //    }
 
 
-//    @GetMapping("/home/showReturnArticle2")
+//    @GetMapping("/showReturnArticle2")
 //    @ResponseBody
 //    public Article2 showReturnArticle2() {
 //        Article2 article2 = new Article2(1, "제목1", "내용1", new ArrayList<>() {{
@@ -162,7 +164,7 @@ public class HomeController {
 //
 
 
-    @GetMapping("/home/showReturnMapList")
+    @GetMapping("/showReturnMapList")
     @ResponseBody
     public List<Map<String, Object>> showReturnMapList() {
         Map<String, Object> articleMap1 = new LinkedHashMap<>(){{
@@ -194,7 +196,7 @@ public class HomeController {
         return list;
     }
 
-    @GetMapping("/home/showReturnArticleList")
+    @GetMapping("/showReturnArticleList")
     @ResponseBody
     public List<Article2> showReturnArticleList() {
         Article2 article1 = new Article2(1, "제목1", "내용1", new ArrayList<>(){{
@@ -220,7 +222,7 @@ public class HomeController {
         return list;
     }
 
-    @GetMapping("/home/addPerson")
+    @GetMapping("/addPerson")
     @ResponseBody
     public String addPerson(String name, int age){
         Person p = new Person(name, age);
@@ -231,7 +233,7 @@ public class HomeController {
         return "%d번 사람이 추가 되었습니다.".formatted(p.getId());
     }
 
-    @GetMapping("/home/personTestCase")
+    @GetMapping("/personTestCase")
     @ResponseBody
     public String personTestCase(){
         personList.add(new Person("홍길동",11));
@@ -241,7 +243,7 @@ public class HomeController {
         return "테스트케이스 추가";
     }
 
-    @GetMapping("/home/removePerson")
+    @GetMapping("/removePerson")
     @ResponseBody
     public String removePerson(int id){
         boolean removed = personList.removeIf(p -> p.getId() == id);
@@ -253,7 +255,7 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/home/modifyPerson")
+    @GetMapping("/modifyPerson")
     @ResponseBody
     public String modifyPerson(int id,
                                @RequestParam(defaultValue = "이름없음") String name,
@@ -272,7 +274,7 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/home/showPeople")
+    @GetMapping("/showPeople")
     @ResponseBody
     public List<Person> showPeople(){
         return personList;
