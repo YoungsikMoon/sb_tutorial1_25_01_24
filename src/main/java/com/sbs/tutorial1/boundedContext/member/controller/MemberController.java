@@ -2,6 +2,7 @@ package com.sbs.tutorial1.boundedContext.member.controller;
 
 import com.sbs.tutorial1.boundedContext.base.rsData.RsData;
 import com.sbs.tutorial1.boundedContext.member.service.MemberService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/member")
+@AllArgsConstructor //필드 주입, 생성자 주입 안해도 private final 하면 알아서 컨테이너에 빈 등록
 public class MemberController {
+
+  private final MemberService memberService;
 
   // 필드 주입
   /*
@@ -17,12 +21,13 @@ public class MemberController {
   private MemberService memberService;
   */
 
-  private final MemberService memberService;
-
+  /*
   // 생성자 주입
+  private final MemberService memberService;
   public MemberController(MemberService memberService){
     this.memberService = memberService;
   }
+   */
 
   @GetMapping("/login")
   @ResponseBody
