@@ -21,11 +21,11 @@ public class MemberController {
   @ResponseBody
   public RsData login(String username, String password){
 
-    if(username.trim().isEmpty()){
+    if(username == null){
       return RsData.of("F-1", "로그인 아이디를 입력해주세요.");
     }
 
-    if(password.trim().isEmpty()){
+    if(password == null){
       return RsData.of("F-2", "로그인 비밀번호를 입력해주세요.");
     }
 
