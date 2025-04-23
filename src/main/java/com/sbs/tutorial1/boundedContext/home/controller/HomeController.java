@@ -1,5 +1,8 @@
-package com.sbs.tutorial1.controller;
+package com.sbs.tutorial1.boundedContext.home.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -47,6 +51,36 @@ public class HomeController {
         num++;
         return num;
     }
+
+    @GetMapping("/home/cookieIncrease")
+    @ResponseBody
+    public int showCookieIncrease(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int countInCookie = 0;
+
+        if (req.getCookies() != null) {
+            countInCookie = Arrays.stream(req.getCookies())
+                .filter(cookie -> cookie.getName().equals("count"))
+                .map(Cookie::getValue)
+                .mapToInt(Integer::parseInt)
+                .findFirst()
+                .orElse(0);
+        }
+
+        int newCountInCookie = countInCookie + 1;
+
+        resp.addCookie(new Cookie("count", newCountInCookie + ""));
+
+        return newCountInCookie;
+    }
+
+
+    @GetMapping("/home/reqAndResp")
+    @ResponseBody
+    public void showReqAndResp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int age = Integer.parseInt(req.getParameter("age"));
+        resp.getWriter().append("Hello, I'm %d years old.");
+    }
+
 
 
     @GetMapping("/home/plus")
