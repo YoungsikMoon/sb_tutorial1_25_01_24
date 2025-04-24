@@ -20,15 +20,16 @@ public class Rq {
     resp.addCookie(new Cookie(name, value));
   }
 
+  // 쿠키 삭제
   public boolean removedCookie(String name) {
-    if (req.getCookies() != null) {
-      Arrays.stream(req.getCookies())
-          .filter(cookie -> cookie.getName().equals(name))
-          .forEach(cookie -> {
-            cookie.setMaxAge(0);
-            resp.addCookie(cookie);
-          });
-      return Arrays.stream(req.getCookies()).anyMatch(cookie -> cookie.getName().equals(name));
+    Cookie cookie = Arrays.stream(req.getCookies())
+        .filter(c -> c.getName().equals(name))
+        .findFirst()
+        .orElse(null);
+    if(cookie != null){
+      cookie.setMaxAge(0);
+      resp.addCookie(cookie);
+      return true;
     }
     return false;
   }
