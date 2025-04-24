@@ -1,5 +1,6 @@
 package com.sbs.tutorial1.boundedContext.home.controller;
 
+import com.sbs.tutorial1.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,9 @@ import java.util.*;
 public class HomeController {
     int num;
     List<Person> personList;
+
+    @Autowired
+    private MemberService memberService;
 
     public HomeController(){
         num=-1;
