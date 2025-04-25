@@ -5,7 +5,17 @@
 <!--  <title>내 정보</title>-->
 <!--</head>-->
 <h1>내 정보</h1>
-<h2> 회원 id : <span th:text="${member.id}"></span> </h2>
 
-<!-- 텍스트 리터럴 표현식 방법-->
-<h2> 회원 이름 : [[${member.username}]] </h2>
+<!-- 타임리프 문법 -->
+<div th:if="${member != null}"></div>
+<form th:action="logout" method="GET">
+  <h2> 회원 id : <span th:text="${member.id}"></span> </h2>
+  <!-- 텍스트 리터럴 표현식 방법-->
+  <h2> 회원 이름 : [[${member.username}]] </h2>
+  <button type="submit">로그아웃</button>
+</form>
+</div>
+
+<div th:if="${member == null}">
+  <h2>로그인 후 이용해주세요</h2>
+</div>

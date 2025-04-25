@@ -63,27 +63,37 @@ public class MemberController {
     return rsData;
   }
 
-  @GetMapping("/logout")
-  @ResponseBody
-  public RsData logout(){
-
-//    boolean cookieRemoved = rq.removedCookie("loginedMemberId");
-//    boolean sessionRemoved = rq.removedSession("loginedMemberId");
+//  @GetMapping("/logout")
+//  @ResponseBody
+//  public RsData logout(){
 //
-//    if(!sessionRemoved){
+////    boolean cookieRemoved = rq.removedCookie("loginedMemberId");
+////    boolean sessionRemoved = rq.removedSession("loginedMemberId");
+////
+////    if(!sessionRemoved){
+////      return RsData.of("F-1", "이미 로그아웃 상태입니다.");
+////    }
+////
+////    return RsData.of("S-1", "로그아웃 되었습니다.");
+//
+//
+//    if(rq.isLogout()){
 //      return RsData.of("F-1", "이미 로그아웃 상태입니다.");
 //    }
 //
+//    rq.removedSession("loginedMemberId");
+//
 //    return RsData.of("S-1", "로그아웃 되었습니다.");
+//  }
 
-
+  @GetMapping("/logout")
+  public String logout(){
     if(rq.isLogout()){
-      return RsData.of("F-1", "이미 로그아웃 상태입니다.");
+      return "usr/member/login";
     }
 
     rq.removedSession("loginedMemberId");
-
-    return RsData.of("S-1", "로그아웃 되었습니다.");
+    return "usr/member/login";
   }
 
 //  @GetMapping("/me")
@@ -114,6 +124,9 @@ public class MemberController {
 
   @GetMapping("/me")
   public String showMe(Model model) {
+    if(rq.isLogout()){
+      return "usr/member/login";
+    }
     long loginedMemberId = rq.getLoginedMember();
     Member member = memberService.findById(loginedMemberId);
     model.addAttribute("member", member); //view에 데이터 전달
