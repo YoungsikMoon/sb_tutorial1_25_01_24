@@ -6,6 +6,7 @@ import com.sbs.tutorial1.boundedContext.member.entity.Member;
 import com.sbs.tutorial1.boundedContext.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,21 +37,8 @@ public class MemberController {
    */
 
   @GetMapping("/login")
-  @ResponseBody
   public String showlogin(){
-    if(rq.isLogined()){
-      return """
-          <h1>이미 로그인 되어 있습니다.</h1>
-          """;
-    }
-    return """
-        <h1> 로그인 </h1>
-        <form method="POST" action="login">
-            <div><input type="text" name="username" placeholder="username 을 입력하세요"/></div>
-            <div><input type="password" name="password" placeholder="password 를 입력하세요"></div>
-            <button type="submit">로그인</button>
-        </form>
-        """; //action="login" 하면 login 메서드가 실행된다.
+    return "usr/member/login";
   }
 
   @PostMapping("/login")
@@ -98,22 +86,38 @@ public class MemberController {
     return RsData.of("S-1", "로그아웃 되었습니다.");
   }
 
+//  @GetMapping("/me")
+//  @ResponseBody
+//  public RsData showMe(){
+//
+////    long loginedMemberId = rq.getCookieAsLong("loginedMemberId", 0);
+//    long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0);
+//
+//    boolean isLogined = loginedMemberId > 0;
+//
+//    if(!isLogined){
+//      return RsData.of("F-1", "로그인 후 이용해주세요.");
+//    }
+//
+//    Member member = memberService.findById(loginedMemberId);
+//    return RsData.of("S-1", "당신의 username(은)는 %s입니다.".formatted(member.getUsername()));
+//  }
+
+//  @GetMapping("/me")
+//  public String showMe(HttpServletRequest req) throws IOException {
+//    long loginedMemberId = rq.getLoginedMember();
+//
+//    Member member = memberService.findById(loginedMemberId);
+//    req.setAttribute("member", member);
+//    return "usr/member/me";
+//  }
+
   @GetMapping("/me")
-  @ResponseBody
-  public RsData showMe(){
-
-//    long loginedMemberId = rq.getCookieAsLong("loginedMemberId", 0);
-    long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0);
-
-    boolean isLogined = loginedMemberId > 0;
-
-    if(!isLogined){
-      return RsData.of("F-1", "로그인 후 이용해주세요.");
-    }
-
-
+  public String showMe(Model model) {
+    long loginedMemberId = rq.getLoginedMember();
     Member member = memberService.findById(loginedMemberId);
-    return RsData.of("S-1", "당신의 username(은)는 %s입니다.".formatted(member.getUsername()));
+    model.addAttribute("member", member); //view에 데이터 전달
+    return "usr/member/me";
   }
 
   @GetMapping("/session-info")

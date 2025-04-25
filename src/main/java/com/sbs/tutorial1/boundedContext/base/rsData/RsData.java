@@ -21,6 +21,6 @@ public class RsData {
 
   // jackson 라이브러리에 의해 자동으로 success 키가 자동으로 생성됨.
   public boolean isSuccess() {
-    return resultCode.startsWith("S");
+    return resultCode.startsWith("S-");
   }
 }
