@@ -124,4 +124,12 @@ public class Rq {
     return sessionInfo;
   }
 
+  public boolean isLogined() {
+    long logindMemberId = getSessionAsLong("loginedMemberId", 0);
+    return logindMemberId > 0;
+  }
+
+  public boolean isLogout(){
+    return !isLogined();
+  }
 }

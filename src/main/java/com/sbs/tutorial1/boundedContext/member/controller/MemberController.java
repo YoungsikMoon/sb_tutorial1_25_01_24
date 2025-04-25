@@ -7,6 +7,7 @@ import com.sbs.tutorial1.boundedContext.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +37,24 @@ public class MemberController {
 
   @GetMapping("/login")
   @ResponseBody
+  public String showlogin(){
+    if(rq.isLogined()){
+      return """
+          <h1>이미 로그인 되어 있습니다.</h1>
+          """;
+    }
+    return """
+        <h1> 로그인 </h1>
+        <form method="POST" action="login">
+            <div><input type="text" name="username" placeholder="username 을 입력하세요"/></div>
+            <div><input type="password" name="password" placeholder="password 를 입력하세요"></div>
+            <button type="submit">로그인</button>
+        </form>
+        """; //action="login" 하면 login 메서드가 실행된다.
+  }
+
+  @PostMapping("/login")
+  @ResponseBody
   public RsData login(String username, String password){
 
     if(username == null){
@@ -61,11 +80,20 @@ public class MemberController {
   public RsData logout(){
 
 //    boolean cookieRemoved = rq.removedCookie("loginedMemberId");
-    boolean sessionRemoved = rq.removedSession("loginedMemberId");
+//    boolean sessionRemoved = rq.removedSession("loginedMemberId");
+//
+//    if(!sessionRemoved){
+//      return RsData.of("F-1", "이미 로그아웃 상태입니다.");
+//    }
+//
+//    return RsData.of("S-1", "로그아웃 되었습니다.");
 
-    if(!sessionRemoved){
+
+    if(rq.isLogout()){
       return RsData.of("F-1", "이미 로그아웃 상태입니다.");
     }
+
+    rq.removedSession("loginedMemberId");
 
     return RsData.of("S-1", "로그아웃 되었습니다.");
   }
