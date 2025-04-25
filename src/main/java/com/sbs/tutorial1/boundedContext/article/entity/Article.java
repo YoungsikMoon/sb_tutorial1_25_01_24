@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -19,8 +19,8 @@ public class Article {
   @Id //primary key
   @GeneratedValue(strategy = IDENTITY) //auto increment
   private long id;
-  private LocalDate createdDate; //데이터 생성 날짜
-  private LocalDate modifiedDate; //데이터 수정 날짜
+  private LocalDateTime createdDate; //데이터 생성 날짜
+  private LocalDateTime modifiedDate; //데이터 수정 날짜
   private String title;
   private String content;
 }
