@@ -29,8 +29,8 @@
   <!-- method="GET" 은 생략가능-->
   <!-- target="_blank" 은 새창열기 -->
   <form method="POST" action="join" onsubmit="return MemberSave__submitForm(this);" id="memberSaveForm">
-  <input type="text" name="username" placeholder="username 을 입력하세요"/>
-    <input type="password" name="password" placeholder="password 를 입력하세요">
+  <input type="text" name="username" required placeholder="username 을 입력하세요"/>
+    <input type="password" name="password" required placeholder="password 를 입력하세요">
     <button type="submit">가입</button>
   </form>
 </body>
