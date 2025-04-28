@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +16,14 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Article {
   @Id //primary key
   @GeneratedValue(strategy = IDENTITY) //auto increment
   private long id;
   private LocalDateTime createdDate; //데이터 생성 날짜
   private LocalDateTime modifiedDate; //데이터 수정 날짜
-  private String title;
+  private String subject;
   private String content;
 }
 
