@@ -32,5 +32,4 @@ public class Member {
 
   @Column(unique = true) // 유니크 키 부여
   private String username;
-  private String password;
-}
+  private String password;}

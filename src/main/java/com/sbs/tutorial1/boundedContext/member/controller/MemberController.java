@@ -45,7 +45,23 @@ public class MemberController {
   @PostMapping("join")
   @ResponseBody
   public RsData join(String username, String password){
-    return memberService.join(username, password);
+    if(username == null || username.trim().isEmpty()){
+      return RsData.of("F-1", "아이디를 입력해주세요.");
+    }
+
+    if(password == null || password.trim().isEmpty()){
+      return RsData.of("F-2", "비밀번호를 입력해주세요.");
+    }
+
+    Member member = memberService.findByUsername(username);
+
+    if(member != null){
+      return RsData.of("F-3", "이미 가입된 아이디 입니다.");
+    }
+
+    RsData rsData = memberService.join(username, password);
+
+    return rsData;
   }
 
   @GetMapping("/login")
@@ -57,11 +73,11 @@ public class MemberController {
   @ResponseBody
   public RsData login(String username, String password){
 
-    if(username == null){
+    if(username == null || username.trim().isEmpty()){
       return RsData.of("F-1", "로그인 아이디를 입력해주세요.");
     }
 
-    if(password == null){
+    if(password == null || password.trim().isEmpty()){
       return RsData.of("F-2", "로그인 비밀번호를 입력해주세요.");
     }
 

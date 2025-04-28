@@ -41,7 +41,12 @@ public class MemberService {
         .build();
 
     memberRepository.save(member);
+
     return RsData.of("S-1", "회원가입에 성공했습니다.", member);
+  }
+
+  public Member findByUsername(String username) {
+    return memberRepository.findByUsername(username).orElse(null);
   }
 }
 
