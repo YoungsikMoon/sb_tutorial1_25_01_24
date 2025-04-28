@@ -1,4 +1,4 @@
-package com.sbs.tutorial1.boundedContext.base.rsData;
+package com.sbs.tutorial1.base.rsData;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

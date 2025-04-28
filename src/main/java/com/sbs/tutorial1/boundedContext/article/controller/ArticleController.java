@@ -3,7 +3,7 @@ package com.sbs.tutorial1.boundedContext.article.controller;
 import com.sbs.tutorial1.boundedContext.article.entity.Article;
 import com.sbs.tutorial1.boundedContext.article.repository.ArticleRepository;
 import com.sbs.tutorial1.boundedContext.article.service.ArticleService;
-import com.sbs.tutorial1.boundedContext.base.rsData.RsData;
+import com.sbs.tutorial1.base.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

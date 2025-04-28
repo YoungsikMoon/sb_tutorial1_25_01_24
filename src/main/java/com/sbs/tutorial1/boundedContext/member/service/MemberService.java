@@ -1,6 +1,6 @@
 package com.sbs.tutorial1.boundedContext.member.service;
 
-import com.sbs.tutorial1.boundedContext.base.rsData.RsData;
+import com.sbs.tutorial1.base.rsData.RsData;
 import com.sbs.tutorial1.boundedContext.member.entity.Member;
 import com.sbs.tutorial1.boundedContext.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,16 @@ public class MemberService {
 
   public Member findById(long id) {
     return memberRepository.findById(id).orElse(null);
+  }
+
+  public RsData join(String username, String password) {
+    Member member = Member.builder()
+        .username(username)
+        .password(password)
+        .build();
+
+    memberRepository.save(member);
+    return RsData.of("S-1", "회원가입에 성공했습니다.", member);
   }
 }
 

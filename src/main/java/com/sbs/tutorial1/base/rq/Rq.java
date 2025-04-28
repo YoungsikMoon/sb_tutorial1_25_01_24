@@ -1,4 +1,4 @@
-package com.sbs.tutorial1.boundedContext.base.rq;
+package com.sbs.tutorial1.base.rq;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
