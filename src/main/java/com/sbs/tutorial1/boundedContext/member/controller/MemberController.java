@@ -4,7 +4,7 @@ import com.sbs.tutorial1.boundedContext.base.rq.Rq;
 import com.sbs.tutorial1.boundedContext.base.rsData.RsData;
 import com.sbs.tutorial1.boundedContext.member.entity.Member;
 import com.sbs.tutorial1.boundedContext.member.service.MemberService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,8 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
-@AllArgsConstructor //필드 주입, 생성자 주입 안해도 private final 하면 알아서 컨테이너에 빈 등록
+//@AllArgsConstructor //필드 주입, 생성자 주입 안해도 private final 하면 알아서 컨테이너에 빈 등록
+@RequiredArgsConstructor
 public class MemberController {
 
   private final MemberService memberService;
