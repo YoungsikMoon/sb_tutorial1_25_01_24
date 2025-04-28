@@ -17,6 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Builder
 @EntityListeners(AuditingEntityListener.class) //Auditing 활성화
+@ToString
 // AuditingEntityListener : Insert, Update 감지하여 필드 값을 재설정
 public class Article {
   @Id //primary key

@@ -26,7 +26,7 @@ public class NotProd {
         memberService.join(usernames[i], passwords[i]);
       }
 
-      for (int i = 3; i <= 10; i++) {
+      for (int i = 1; i <= 10; i++) {
         articleService.write("제목" + i, "내용" + i);
       }
 

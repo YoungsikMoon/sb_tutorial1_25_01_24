@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorate="~{usr/layout/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 리스트</title>
+</head>
+<body>
+<main layout:fragment="main">
+  <section class="container mx-auto">
+    <div class="flex gap-2 justify-between p-4">
+      <h1 class="font-bold text-2xl">게시물 리스트</h1>
+      <a href="/article/write" class="btn btn-primary">게시물 작성</a>
+    </div>
+    <div class="mt-2">
+      <table class="table table-fixed w-full hover">
+      <colgroup>
+          <col width="50"/>
+          <col width="200"/>
+          <col width="300"/>
+          <col width="100"/>
+          <col width="100"/>
+        </colgroup>
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>내용</th>
+          <th>작성일</th>
+          <th>수정일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(articles)}">
+          <td colspan="5" class="text-center py-4">게시물이 없습니다</td>
+        </tr>
+        <tr th:each="article : ${articles}" class="hover:bg-gray-100">
+          <td th:text="${article.id}"></td>
+          <td><a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.subject}"
+                 class="hover:underline text-blue-600"></a></td>
+          <td th:text="${article.content}"></td>
+          <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+          <td th:text="${#temporals.format(article.modifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>
