@@ -37,6 +37,17 @@ public class MemberController {
   }
    */
 
+  @GetMapping("/join")
+  public String showJoin() {
+    return "usr/member/join";
+  }
+
+  @PostMapping("join")
+  @ResponseBody
+  public RsData join(String username, String password){
+    return memberService.join(username, password);
+  }
+
   @GetMapping("/login")
   public String showlogin(){
     return "usr/member/login";
