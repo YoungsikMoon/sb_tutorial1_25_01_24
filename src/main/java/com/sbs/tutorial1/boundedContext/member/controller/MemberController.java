@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
@@ -43,25 +44,17 @@ public class MemberController {
   }
 
   @PostMapping("join")
-  @ResponseBody
-  public RsData join(String username, String password){
-    if(username == null || username.trim().isEmpty()){
-      return RsData.of("F-1", "아이디를 입력해주세요.");
-    }
-
-    if(password == null || password.trim().isEmpty()){
-      return RsData.of("F-2", "비밀번호를 입력해주세요.");
-    }
-
+  public String join(String username, String password, RedirectAttributes redirectAttributes){
     Member member = memberService.findByUsername(username);
 
     if(member != null){
-      return RsData.of("F-3", "이미 가입된 아이디 입니다.");
+      redirectAttributes.addFlashAttribute("rsData", RsData.of("F-3", "이미 가입된 아이디 입니다."));
+      return "redirect:/";
     }
 
     RsData rsData = memberService.join(username, password);
 
-    return rsData;
+    return "redirect:/";
   }
 
   @GetMapping("/login")
